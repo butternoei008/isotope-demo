@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>Document</title>
+   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+   <div class="sort-by-button-group mb-5">
+      <button class="btn btn-primary" data-sort-value="number, color">
+         number, color
+      </button>
+      <button class="btn btn-primary" data-sort-value="color, number">
+         color, number
+      </button>
+   </div>
+      
+   <div class="grid row">
+      <div class="col-3 bg-primary" data-color="primary">
+         <h1 class="number">3</h1>
+      </div>
+      <div class="col-3 bg-secondary" data-color="secondary">
+         <h1 class="number">2</h1>
+      </div>
+      <div class="col-3 bg-success" data-color="success">
+         <h1 class="number">3</h1>
+      </div>
+      <div class="col-3 bg-warning" data-color="warning">
+         <h1 class="number">2</h1>
+      </div>
+   </div>
+
+   <script src="node_modules/jquery/dist/jquery.min.js"></script>
+   <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+   <script src="node_modules/isotope-layout/dist/isotope.pkgd.min.js"></script>
+   <script>
+      var $grid = $('.grid').isotope({
+         getSortData: {
+            color: '[data-color]',
+            number: '.number parseInt'
+         },
+         sortBy: ['color', 'number']
+      });
+
+      $('.sort-by-button-group').on('click', 'button', function () {
+         var sortValue = $(this).attr('data-sort-value');
+         sortValue = sortValue.split(',');         
+         $grid.isotope({ sortBy: sortValue });
+      });
+   </script>
+</body>
+
+</html>
